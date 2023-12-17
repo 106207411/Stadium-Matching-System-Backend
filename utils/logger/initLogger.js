@@ -4,7 +4,7 @@ const LokiTransport = require("winston-loki");
 const options = {
   transports: [
     new LokiTransport({
-      host: "http://loki:3100",
+      host: "loki:3100",
       json: true,
       format: format.json(),
       onConnectionError: (error) => {
