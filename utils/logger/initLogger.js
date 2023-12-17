@@ -7,9 +7,9 @@ const options = {
       host: "loki:3100",
       json: true,
       format: format.json(),
-      onConnectionError: (error) => {
-        console.log(error);
-      }
+      // onConnectionError: (error) => {
+      //   console.log(error);
+      // }
     }),
     new transports.Console({
       format: format.combine(format.simple(), format.colorize())
