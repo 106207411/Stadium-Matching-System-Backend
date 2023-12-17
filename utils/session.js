@@ -10,7 +10,6 @@ const options = {
 };
 const sessionStore = new MySQLStore(options);
 
-console.log(JSON.stringify(process.env))
 const Session = session({
     key: 'session_cookie_name',
     secret: process.env.SESSION_SECRET,

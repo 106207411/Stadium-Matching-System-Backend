@@ -37,6 +37,9 @@ app.use(responseTime(logResponseTime));
 app.get('/health', (req, res) => {
     return res.status(200).send('OK');
 });
+app.get('/alerting', (req, res) => {
+    return res.status(503).send('Service Unavailable');
+});
 
 
 //app.use('/.well-known/pki-validation', express.static('/.well-known/pki-validation/'));
