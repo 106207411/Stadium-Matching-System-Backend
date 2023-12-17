@@ -44,3 +44,9 @@ jobs:
         id: acr
         run: |
             echo "$(docker inspect ${{ env.IMAGE_NAME }}:latest -f '{{ .Id }}')" >> acr.txt
+      
+      # Azure logout
+      - name: logout
+        run: |
+          az logout
+        if: always()
