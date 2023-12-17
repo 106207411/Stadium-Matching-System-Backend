@@ -15,6 +15,7 @@ const Session = session({
     key: 'session_cookie_name',
     secret: process.env.SESSION_SECRET,
     store: sessionStore,
+    proxy: true,
     resave: false,
     saveUninitialized: false,
     cookie: {
