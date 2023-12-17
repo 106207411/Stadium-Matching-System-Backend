@@ -39,14 +39,3 @@ jobs:
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ env.BUILD_ID }}_${{ env.COMMIT_ID }}
           file: ${{ env.DOCKERFILE_PATH }}
-            
-      - name: Save container hashes
-        id: acr
-        run: |
-            echo "$(docker inspect ${{ env.IMAGE_NAME }}:latest -f '{{ .Id }}')" >> acr.txt
-      
-      # Azure logout
-      - name: logout
-        run: |
-          az logout
-        if: always()
