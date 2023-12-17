@@ -13,6 +13,7 @@ const logResponseTime = require('../utils/logger/responseTime');
 const logError = require('../utils/logger/error');
 const app = express();
 const { Session } = require('../utils/session');
+const morganMiddleware = require('../utils/logger/server');
 require('dotenv').config('../.env');
 
 logger.info("Starting App...");
@@ -27,12 +28,12 @@ const corsOptions = {
 app.enable('trust proxy');
 app.set('trust proxy', true);
 
-app.use(responseTime())
+// app.use(responseTime())
 app.use(cors(corsOptions));
-app.use(morgan('tiny'));
+// app.use(morgan('tiny'));
 app.use(express.json());
 app.use(Session);
-app.use(responseTime(logResponseTime));
+// app.use(responseTime(logResponseTime));
 
 app.get('/health', (req, res) => {
     return res.status(200).send('OK');
@@ -53,5 +54,6 @@ app.use('/api/event', eventRouter);
 app.use('/api/feedback', feedbackRouter);
 
 app.use(logError);
+app.use(morganMiddleware);
 
 module.exports = { app };

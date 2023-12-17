@@ -2,6 +2,13 @@ const { createLogger, transports, format, Logger } = require("winston");
 const LokiTransport = require("winston-loki");
 
 const options = {
+  level: 'http',
+  format: format.combine(
+    format.timestamp({
+      format: 'YYYY-MM-DD hh:mm:ss.SSS A',
+    }),
+    format.json()
+  ),
   transports: [
     new LokiTransport({
       host: "loki:3100",
@@ -11,9 +18,7 @@ const options = {
       //   console.log(error);
       // }
     }),
-    new transports.Console({
-      format: format.combine(format.simple(), format.colorize())
-    })
+    new transports.Console()
   ]
 };
 
