@@ -23,6 +23,7 @@ const Session = session({
       sameSite: 'none',
       maxAge: 60 * 60 * 24 * 1000
     }
+
 });
 
 module.exports = {

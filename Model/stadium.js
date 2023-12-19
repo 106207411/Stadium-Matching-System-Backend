@@ -1,15 +1,24 @@
 const pool = require('./db').pool;
 async function getStadiumsByCategory(category) {
     try {
-        const query = 'SELECT stadium_id, name, picture FROM Stadiums WHERE category = ?';
-        const [stadiums] = await pool.query(query, [category]);
+        let query;
+        let params;
+
+        if (category.toLowerCase() === 'all') {
+            query = 'SELECT * FROM Stadiums WHERE availble = 1';
+            params = [];
+        } else {
+            query = 'SELECT * FROM Stadiums WHERE category = ? AND availble = 1';
+            params = [category];
+        }
+
+        const [stadiums] = await pool.query(query, params);
         return stadiums;
     } catch (err) {
         console.error(err);
         throw err;
     }
 }
-
 async function getStadiumAvailability(stadiumId, date) {
     const query = `
             SELECT ts.start_time, 
@@ -39,5 +48,10 @@ async function getStadiumDetails(stadiumId) {
         throw err;
     }
 }
+async function createActivity(stadiumId, name, people, level, description, date, timeslot) {
+    const query = 'INSERT INTO Activity (stadium_id, title, max, level, note, date, timeslot) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const [result] = await pool.query(query, [stadiumId, name, people, level, description, date, timeslot]);
+    return result.insertId;
+}
 
-module.exports = {getStadiumsByCategory,getStadiumAvailability,getStadiumDetails};
+module.exports = {getStadiumsByCategory,getStadiumAvailability,getStadiumDetails,createActivity};

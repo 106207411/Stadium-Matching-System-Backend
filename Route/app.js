@@ -2,7 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const userRouter = require('./user');
 const homeRouter = require('./home');
-const stadiumRouter = require ('./stadium')
+const adminRouter = require('./admin');
+const stadiumRouter = require ('./stadium');
 const activityRouter = require('./activity');
 const eventRouter = require('./event');
 const feedbackRouter = require('./feedback');
@@ -54,4 +55,5 @@ app.use('/api/feedback', feedbackRouter);
 
 app.use(logError);
 
+app.use('/api/admin', adminRouter);
 module.exports = { app };
