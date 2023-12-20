@@ -62,4 +62,13 @@ jobs:
       - name: Update image tag of Helm chart
         run: |
           sed -i 's/tag: ".*"/tag: "${{ env.BUILD_ID }}_${{ env.COMMIT_ID }}"/g' stadium-chart/values.yaml
+      
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "Github Action"
+          git config --global user.email "106207411@g.nccu.edu.tw"
+
+          git add -A
+          git commit -m "helmcharts deployment updated by ${{ env.COMMIT_ID }}"
+          git push origin HEAD:cicd
         
