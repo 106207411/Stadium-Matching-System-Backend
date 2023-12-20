@@ -6,6 +6,25 @@ on:
       - cicd
 
 jobs:
+
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Checkout your code repository
+  
+      - name: Setup Node.js
+        uses: actions/setup-node@v2  # Set up Node.js environment
+        with:
+          node-version: '20'  # Adjust Node.js version as needed
+
+      - name: Install dependencies
+        run: npm install  # Install Node.js dependencies
+  
+      - name: Run unit tests
+        run: npm test  # Execute unit tests using npm test script
+
+
   build-and-push:
     runs-on: ubuntu-latest
     env:
@@ -39,3 +58,8 @@ jobs:
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ env.BUILD_ID }}_${{ env.COMMIT_ID }}
           file: ${{ env.DOCKERFILE_PATH }}
+      
+      - name: Update image tag of Helm chart
+        run: |
+          sed -i 's/tag: ".*"/tag: "${{ env.BUILD_ID }}_${{ env.COMMIT_ID }}"/g' stadium-chart/values.yaml
+        
