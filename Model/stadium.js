@@ -36,7 +36,7 @@ async function getStadiumAvailability(stadiumId, date) {
 
 async function getStadiumDetails(stadiumId) {
     try {
-        const queryStadium = 'SELECT name, price, rule FROM Stadiums WHERE stadium_id = ?';
+        const queryStadium = 'SELECT name, price, picture, rule FROM Stadiums WHERE stadium_id = ?';
         const [stadiumDetails] = await pool.query(queryStadium, [stadiumId]);
 
         const queryEquipments = 'SELECT water, bathroom, air_condition, vending FROM Equipments WHERE stadium_id = ?';
@@ -48,9 +48,11 @@ async function getStadiumDetails(stadiumId) {
         throw err;
     }
 }
-async function createActivity(stadiumId, name, people, level, description, date, timeslot) {
-    const query = 'INSERT INTO Activity (stadium_id, title, max, level, note, date, timeslot) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    const [result] = await pool.query(query, [stadiumId, name, people, level, description, date, timeslot]);
+async function createActivity(userId, stadiumId, name, people, level, description, date, timeslot) {
+    let query = 'INSERT INTO Activity (stadium_id, host_id, title, max, level, note, date, timeslot) VALUES (?, ?, ?, ? , ?, ?, ?, ?)';
+    const [result] = await pool.query(query, [stadiumId, userId, name, people, level, description, date, timeslot]);
+    query = `INSERT INTO Order_info (reservation_id, user_id) VALUES (?, ?)`;
+    await pool.query(query, [result.insertId, userId]);
     return result.insertId;
 }
 
