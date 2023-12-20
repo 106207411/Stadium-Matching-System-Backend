@@ -1,10 +1,16 @@
 const { createLogger, transports, format, Logger } = require("winston");
 const LokiTransport = require("winston-loki");
 
+const timezoned = () => {
+  return new Date().toLocaleString("en-US", {
+    timeZone: "Asia/Taipei",
+  });
+}
+
 const options = {
   format: format.combine(
     format.timestamp({
-      format: 'YYYY-MM-DD hh:mm:ss.SSS A',
+      format: timezoned,
     }),
     format.json(),
     // format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
