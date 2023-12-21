@@ -4,5 +4,5 @@
 /nginx
 .Ds_Store
 /mysql_data
-# values.yaml
+values.yaml
 ```
