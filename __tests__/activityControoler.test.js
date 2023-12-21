@@ -1,5 +1,5 @@
 const model = require('../Model/activity');
-const activitiesController = require('../controller/activity');
+const activitiesController = require('../Controller/activity');
 
 jest.mock('../Model/activity');
 
