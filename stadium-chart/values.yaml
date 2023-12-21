@@ -13,7 +13,7 @@ microservices:
 image:
   repository: stadiumacr.azurecr.io/backend
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "20231221_032459_063b0f8"
+  tag: "20231221_091255_4509dc7"
   defaulttag: latest
 
 service:
