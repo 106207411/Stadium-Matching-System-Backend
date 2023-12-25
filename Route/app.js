@@ -20,7 +20,7 @@ logger.info("Starting App...");
 
 const corsOptions = {
     // allow localhost only for test
-	origin: ["http://localhost:5173", "http://192.168.0.55:5173", 'https://stadium.azureedge.net', 'https://www.postman.com/', 'https://stadium.rdto.io', 'http://54.152.133.111:5173'],
+	origin: ["http://localhost:5173", "http://192.168.0.55:5173", 'https://stadium.azureedge.net', 'https://www.postman.com/', 'https://stadium.rdto.io', 'https://cnfinal.stadium.rdto.io'],
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     credentials: true
 }
